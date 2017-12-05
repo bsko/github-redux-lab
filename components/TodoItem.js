@@ -4,12 +4,6 @@ class TodoItem extends Component {
 
     constructor(props) {
         super(props);
-
-        this.complete = this.complete.bind(this);
-    }
-
-    complete() {
-        this.props.onComplete(this.props.todo);
     }
 
     render() {
@@ -19,7 +13,7 @@ class TodoItem extends Component {
                     <div className="row">
                         <div className="text">{this.props.todo.text}</div>
                         <div className="jackdaw">
-                            {this.props.todo.done === 0 && <span className="clickable" onClick={this.complete}>&#10004;</span>}
+                            {this.props.todo.done === 0 && <span className="clickable" onClick={() => this.props.onComplete(this.props.todo)}>&#10004;</span>}
                             {this.props.todo.done === 1 && <span>{this.props.todo.estimated}</span>}
                         </div>
                     </div>

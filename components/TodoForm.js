@@ -1,27 +1,12 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom'
-import TodoItem from "../components/TodoItem";
-import TodoTotal from "../components/TodoTotal";
-import todosService from "../todos.service";
+import TodoItem from "./TodoItem";
+import TodoTotal from "./TodoTotal";
 
 class TodoForm extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            todos: todosService.getTodos()
-        };
-
-        this.onComplete = this.onComplete.bind(this);
-    }
-
-    onComplete(todo) {
-        todo.done = 1;
-        var beginTime= todo.time.getTime();
-        var endTime = new Date().getTime();
-        var result = (endTime - beginTime) / 1000;
-        todo.estimated = `${result} sec`;
-        this.setState({todos: this.state.todos});
     }
 
     render() {
@@ -33,15 +18,15 @@ class TodoForm extends Component {
                     </div>
                 </div>
                 <TodoTotal
-                    count={this.state.todos.length}
+                    count={this.props.todos.length}
                 ></TodoTotal>
                 <div className="row align-center">
                     <div className="col div-width">
-                        {this.state.todos.map( todo =>
+                        {this.props.todos.map( todo =>
                             <TodoItem
                                 key={todo.text}
                                 todo={todo}
-                                onComplete={this.onComplete}
+                                onComplete={(todo) => this.props.onCompleteTodo(todo)}
                             />
                         )}
                     </div>
